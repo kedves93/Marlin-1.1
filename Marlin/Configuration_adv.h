@@ -281,7 +281,7 @@
 
 // If you want endstops to stay on (by default) even when not homing
 // enable this option. Override at any time with M120, M121.
-//#define ENDSTOPS_ALWAYS_ON_DEFAULT
+#define ENDSTOPS_ALWAYS_ON_DEFAULT
 
 // @section extras
 
@@ -386,7 +386,7 @@
 #define Y_HOME_BUMP_MM 5
 #define Z_HOME_BUMP_MM 2
 #define HOMING_BUMP_DIVISOR { 2, 2, 4 }  // Re-Bump Speed Divisor (Divides the Homing Feedrate)
-//#define QUICK_HOME                     // If homing includes X and Y, do a diagonal move initially
+#define QUICK_HOME                     // If homing includes X and Y, do a diagonal move initially
 
 // When G28 is called, this option will make Y home before X
 //#define HOME_Y_BEFORE_X
@@ -460,7 +460,7 @@
  * vibration and surface artifacts. The algorithm adapts to provide the best possible step smoothing at the
  * lowest stepping frequencies.
  */
-//#define ADAPTIVE_STEP_SMOOTHING
+#define ADAPTIVE_STEP_SMOOTHING
 
 // Microstep setting (Only functional when stepper driver microstep pins are connected to MCU.
 #define MICROSTEP_MODES { 16, 16, 16, 16, 16 } // [1,2,4,8,16]
@@ -524,22 +524,22 @@
 // @section lcd
 
 // Include a page of printer information in the LCD Main Menu
-//#define LCD_INFO_MENU
+#define LCD_INFO_MENU
 
 // Scroll a longer status message into view
 //#define STATUS_MESSAGE_SCROLLING
 
 // On the Info Screen, display XY with one decimal place when possible
-//#define LCD_DECIMAL_SMALL_XY
+#define LCD_DECIMAL_SMALL_XY
 
 // The timeout (in ms) to return to the status screen from sub-menus
-//#define LCD_TIMEOUT_TO_STATUS 15000
+#define LCD_TIMEOUT_TO_STATUS 15000
 
 // Add an 'M73' G-code to set the current percentage
-//#define LCD_SET_PROGRESS_MANUALLY
+#define LCD_SET_PROGRESS_MANUALLY
 
 #if ENABLED(SDSUPPORT) || ENABLED(LCD_SET_PROGRESS_MANUALLY)
-  //#define LCD_PROGRESS_BAR              // Show a progress bar on HD44780 LCDs for SD printing
+  #define LCD_PROGRESS_BAR              // Show a progress bar on HD44780 LCDs for SD printing
   #if ENABLED(LCD_PROGRESS_BAR)
     #define PROGRESS_BAR_BAR_TIME 2000    // (ms) Amount of time to show the bar
     #define PROGRESS_BAR_MSG_TIME 3000    // (ms) Amount of time to show the status message
@@ -553,7 +553,7 @@
  * LED Control Menu
  * Enable this feature to add LED Control to the LCD menu
  */
-//#define LED_CONTROL_MENU
+#define LED_CONTROL_MENU
 #if ENABLED(LED_CONTROL_MENU)
   #define LED_COLOR_PRESETS                 // Enable the Preset Color menu option
   #if ENABLED(LED_COLOR_PRESETS)
@@ -573,14 +573,14 @@
   // as SD_DETECT_PIN in your board's pins definitions.
   // This setting should be disabled unless you are using a push button, pulling the pin to ground.
   // Note: This is always disabled for ULTIPANEL (except ELB_FULL_GRAPHIC_CONTROLLER).
-  #define SD_DETECT_INVERTED
+  //#define SD_DETECT_INVERTED
 
   #define SD_FINISHED_STEPPERRELEASE true          // Disable steppers when SD Print is finished
   #define SD_FINISHED_RELEASECOMMAND "M84 X Y Z E" // You might want to keep the z enabled so your bed stays in place.
 
   // Reverse SD sort to show "more recent" files first, according to the card's FAT.
   // Since the FAT gets out of order with usage, SDCARD_SORT_ALPHA is recommended.
-  #define SDCARD_RATHERRECENTFIRST
+  //#define SDCARD_RATHERRECENTFIRST
 
   // Add an option in the menu to run all auto#.g files
   //#define MENU_ADDAUTOSTART
@@ -622,7 +622,7 @@
    *  - SDSORT_CACHE_NAMES will retain the sorted file listing in RAM. (Expensive!)
    *  - SDSORT_DYNAMIC_RAM only uses RAM when the SD menu is visible. (Use with caution!)
    */
-  //#define SDCARD_SORT_ALPHA
+  #define SDCARD_SORT_ALPHA
 
   // SD Card Sorting options
   #if ENABLED(SDCARD_SORT_ALPHA)
@@ -648,7 +648,7 @@
    * This feature must be enabled with "M540 S1" or from the LCD menu.
    * To have any effect, endstops must be enabled during SD printing.
    */
-  //#define ABORT_ON_ENDSTOP_HIT_FEATURE_ENABLED
+  #define ABORT_ON_ENDSTOP_HIT_FEATURE_ENABLED
 
   /**
    * This option makes it easier to print the same SD Card file again.
@@ -744,9 +744,9 @@
  *
  * Warning: Does not respect endstops!
  */
-//#define BABYSTEPPING
+#define BABYSTEPPING
 #if ENABLED(BABYSTEPPING)
-  //#define BABYSTEP_XY              // Also enable X/Y Babystepping. Not supported on DELTA!
+  #define BABYSTEP_XY              // Also enable X/Y Babystepping. Not supported on DELTA!
   #define BABYSTEP_INVERT_Z false    // Change if Z babysteps should go the other way
   #define BABYSTEP_MULTIPLICATOR 1   // Babysteps are very small. Increase for faster motion.
   //#define BABYSTEP_ZPROBE_OFFSET   // Enable to combine M851 and Babystepping
@@ -828,7 +828,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MINIMUM_STEPPER_DIR_DELAY 650
+#define MINIMUM_STEPPER_DIR_DELAY 650
 
 /**
  * Minimum stepper driver pulse width (in µs)
@@ -841,7 +841,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MINIMUM_STEPPER_PULSE 2
+#define MINIMUM_STEPPER_PULSE 2
 
 /**
  * Maximum stepping rate (in Hz) the stepper driver allows
@@ -855,7 +855,7 @@
  *
  * Override the default value based on the driver type set in Configuration.h.
  */
-//#define MAXIMUM_STEPPER_RATE 250000
+#define MAXIMUM_STEPPER_RATE 250000
 
 // @section temperature
 
