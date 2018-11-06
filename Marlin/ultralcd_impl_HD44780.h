@@ -334,6 +334,17 @@ static void lcd_set_custom_characters(
     B00000
   };
 
+  const static PROGMEM byte fan[8] = {
+	B00000,
+	B10011,
+	B10100,
+	B01110,
+	B00101,
+	B11001,
+	B00000,
+	B00000
+  };
+
   #if ENABLED(LCD_PROGRESS_BAR)
 
     // CHARSET_INFO
@@ -402,12 +413,13 @@ static void lcd_set_custom_characters(
     }
     else
   #endif
-    { // Info Screen uses 5 special characters
+    { // Info Screen uses 6 special characters
       createChar_P(LCD_BEDTEMP_CHAR, bedTemp);
       createChar_P(LCD_DEGREE_CHAR, degree);
       createChar_P(LCD_STR_THERMOMETER[0], thermometer);
       createChar_P(LCD_FEEDRATE_CHAR, feedrate);
       createChar_P(LCD_CLOCK_CHAR, clock);
+	  createChar_P(LCD_STR_FAN[0], fan);
 
       #if ENABLED(LCD_PROGRESS_BAR)
         if (screen_charset == CHARSET_INFO) { // 3 Progress bar characters for info screen
@@ -530,10 +542,13 @@ void lcd_printPGM_utf(const char *str, uint8_t n=LCD_WIDTH) {
     }
   }
 
+  //
+  // Szilard - logo
+  // 
   static void logo_lines(const char* const extra) {
-    int16_t indent = (LCD_WIDTH - 8 - utf8_strlen_P(extra)) / 2;
+    int16_t indent = (LCD_WIDTH - 15 - utf8_strlen_P(extra)) / 2;
     lcd.setCursor(indent, 0); lcd.print('\x00'); lcd_printPGM(PSTR( "------" ));  lcd.write('\x01');
-    lcd.setCursor(indent, 1);                    lcd_printPGM(PSTR("|Marlin|"));  lcd_printPGM(extra);
+    lcd.setCursor(indent, 1);                    lcd_printPGM(PSTR("|Die Nebenwelt |"));  lcd_printPGM(extra);
     lcd.setCursor(indent, 2); lcd.write('\x02'); lcd_printPGM(PSTR( "------" ));  lcd.write('\x03');
   }
 
@@ -773,22 +788,29 @@ static void lcd_implementation_status_screen() {
     _draw_heater_status(0, LCD_STR_THERMOMETER[0], blink);
 
     //
-    // Hotend 1 or Bed Temperature
+    // Hotend 1 or Bed Temperature or Fan
     //
-    #if HOTENDS > 1 || HAS_HEATED_BED
+    #if HOTENDS > 1 || HAS_HEATED_BED || HAS_FAN0
       lcd.setCursor(10, 0);
       #if HOTENDS > 1
         _draw_heater_status(1, LCD_STR_THERMOMETER[0], blink);
-      #else
+	  #elif HAS_HEATED_BED
         _draw_heater_status(-1, (
           #if HAS_LEVELING
             planner.leveling_active && blink ? '_' :
           #endif
           LCD_BEDTEMP_CHAR
         ), blink);
+	  #elif HAS_FAN0 // Szilard - Fan Status
+		  lcd.setCursor(15, 0);
+		  lcd.print(LCD_STR_FAN[0]);
+		  if (fanSpeeds[0] != 0)
+			  lcd.print(itostr3(fanSpeeds[0] * 100 / 255));
+		  else
+			  lcd_printPGM(PSTR("---"));
+		  lcd.print('%');
       #endif
-
-    #endif // HOTENDS > 1 || HAS_HEATED_BED
+	#endif // HOTENDS > 1 || HAS_HEATED_BED || HAS_FAN0
 
   #endif // LCD_WIDTH >= 20
 

@@ -342,6 +342,7 @@
   #define LCD_STR_FOLDER      "\x05"
   #define LCD_FEEDRATE_CHAR    0x06
   #define LCD_CLOCK_CHAR       0x07
+  #define LCD_STR_FAN         "\x08"
   #define LCD_STR_ARROW_RIGHT ">"  /* from the default character set */
 #endif
 
